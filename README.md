@@ -1,6 +1,8 @@
 SoundKit: Easy In-Browser Audio
 ===============================
 
+![tests](https://github.com/foxxyz/soundkit/workflows/tests/badge.svg)
+
 Easy to use service for loading and playing sounds in web applications.
 
 Features:
