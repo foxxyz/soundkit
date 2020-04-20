@@ -1,0 +1,98 @@
+{
+  "name": "soundkit",
+  "version": "1.0.0",
+  "description": "Easy Sound Management & Playback",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": [
+      "text"
+    ],
+    "setupFiles": [
+      "./test/mocks.js"
+    ],
+    "silent": true,
+    "verbose": true
+  },
+  "dependencies": {
+    "nanoid": "^3.1.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foxxyz/soundkit"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-throw-expressions": "^7.8.3",
+    "@babel/preset-env": "^7.9.5",
+    "babel-jest": "^25.4.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-jest": "^23.8.2",
+    "jest": "^25.4.0",
+    "vue": "^2.6.11"
+  },
+  "author": "Ivo Janssen <hello@ivo.la>",
+  "contributors": [
+    "Andrew Burke <andrewsburke@gmail.com>"
+  ],
+  "license": "MIT",
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es6": true,
+      "jest/globals": true
+    },
+    "extends": [
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2020,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "jest"
+    ],
+    "rules": {
+      "eqeqeq": [
+        "error",
+        "always"
+      ],
+      "indent": [
+        "error",
+        4
+      ],
+      "linebreak-style": [
+        "error",
+        "unix"
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "no-console": [
+        "error",
+        {
+          "allow": [
+            "warn",
+            "info",
+            "error"
+          ]
+        }
+      ],
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "prefer-const": [
+        "error"
+      ],
+      "semi": [
+        "error",
+        "never"
+      ]
+    }
+  }
+}
