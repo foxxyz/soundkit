@@ -137,9 +137,17 @@ Mute a particular group. Resolves when mute is complete.
 
 Sound objects are created with calls to `SoundKit.play()` and should not be instantiated manually.
 
+#### .pause()
+
+Pause this sound.
+
 #### .pauseOrResume()
 
-Pause or continue playing this sound.
+Toggle between pause and resume states.
+
+#### .resume()
+
+Resume playing this sound after a pause.
 
 #### .stop()
 
