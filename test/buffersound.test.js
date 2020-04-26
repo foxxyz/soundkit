@@ -66,12 +66,30 @@ describe('BufferSound', () => {
         s2.stop()
         expect(sk.sounds.example.instances.length).toBe(0)
     })
-    it('pauses sounds successfully', async () => {
+    it('pauses successfully', async () => {
+        await sk.load({ example: 'example.mp3' })
+        const sound = await sk.play('example')
+        sound.pause()
+        expect(sound.source.playbackRate.value).toBe(0)
+        sound.pause()
+        expect(sound.source.playbackRate.value).toBe(0)
+    })
+    it('pause or resumes successfully', async () => {
         await sk.load({ example: 'example.mp3' })
         const sound = await sk.play('example')
         sound.pauseOrResume()
         expect(sound.source.playbackRate.value).toBe(0)
         sound.pauseOrResume()
+        expect(sound.source.playbackRate.value).toBe(1)
+    })
+    it('resumes successfully', async () => {
+        await sk.load({ example: 'example.mp3' })
+        const sound = await sk.play('example')
+        sound.pause()
+        expect(sound.source.playbackRate.value).toBe(0)
+        sound.resume()
+        expect(sound.source.playbackRate.value).toBe(1)
+        sound.resume()
         expect(sound.source.playbackRate.value).toBe(1)
     })
     it('emits end events when ended', async () => {

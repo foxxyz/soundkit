@@ -16,12 +16,18 @@ export class BufferSound extends BaseSound {
         super.onStop()
         this.source.disconnect()
     }
+    pause() {
+        this.source.playbackRate.value = 0
+    }
     pauseOrResume() {
-        this.source.playbackRate.value = this.source.playbackRate.value == 0 ? 1 : 0
+        this.source.playbackRate.value === 0 ? this.resume() : this.pause()
     }
     play() {
         this.source.start(0)
         super.play()
+    }
+    resume() {
+        this.source.playbackRate.value = 1
     }
     stop() {
         this.source.stop()
