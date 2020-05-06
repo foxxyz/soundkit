@@ -89,13 +89,13 @@ Add an array of groups.
  * `groups`: Array with each element containing group keys (see `addGroup()`)
  * `parent`: Which group to add as children to (optional) (leave `undefined` to add as root)
 
-### .fadeIn(group: string, duration: float) : Promise
+#### .fadeIn(group: string, duration: float) : Promise
 
 Gradually decrease gain of group. Resolves when complete.
  * `group`: Name of group to fade (optional) (default: `master`)
  * `duration`: Duration of fade (optional) (default: `SoundKit.defaultFadeDuration`)
 
-### .fadeOut(group: string, duration: float) : Promise
+#### .fadeOut(group: string, duration: float) : Promise
 
 Gradually increase gain of group. See `.fadeIn()` for args.
 
