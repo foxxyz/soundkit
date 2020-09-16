@@ -15,6 +15,11 @@ Features:
  * [Vue](https://vuejs.org/) plugin support
  * Fully tested
 
+Requirements
+------------
+
+ * Node 10+
+
 Installation
 ------------
 
