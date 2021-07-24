@@ -15,6 +15,7 @@
       "./test/mocks.js"
     ],
     "silent": true,
+    "testEnvironment": "jsdom",
     "verbose": true
   },
   "peerDependencies": {
