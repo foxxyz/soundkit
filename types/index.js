@@ -1,3 +1,1 @@
-import { BufferSound } from './buffer'
-
-export { BufferSound }
+export { BufferSound } from './buffer'

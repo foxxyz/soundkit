@@ -4,6 +4,12 @@ const DEFAULT_GROUPS = [
     { name: 'master', level: 1 }
 ]
 
+const decode = async (ctx, url) => {
+    const res = await fetch(url)
+    const buff = await res.arrayBuffer()
+    return ctx.decodeAudioData(buff)
+}
+
 export class SoundKit {
     // Vue plugin support
     static install(Vue, { name='sound', ...options }={}) {
@@ -75,20 +81,16 @@ export class SoundKit {
             }, duration * 1000)
         })
     }
-    load(sounds) {
-        const tasks = []
+    async load(sounds) {
         for(const key in sounds) {
             // Ignore if this sound already exists
             if (this.sounds[key]) continue
             const sound = sounds[key]
-            tasks.push(fetch(sound)
-                .then(res => res.arrayBuffer())
-                .then(buff => this.context.decodeAudioData(buff))
-                .then(buffer => {
-                    this.sounds[key] = { buffer, instances: [] }
-                }))
+            this.sounds[key] = {
+                buffer: await decode(this.context, sound),
+                instances: []
+            }
         }
-        return Promise.all(tasks)
     }
     play(key, options) {
         // Ensure sound is available

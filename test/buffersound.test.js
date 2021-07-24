@@ -12,8 +12,8 @@ describe('BufferSound', () => {
     })
     it('ignores duplicates', async () => {
         sk.sounds.example = true
-        const result = await sk.load({ example: 'example.mp3' })
-        expect(result).toEqual([])
+        await sk.load({ example: 'example.mp3' })
+        expect(sk.sounds.example).toEqual(true)
     })
     it('plays successfully', async () => {
         await sk.load({ example: 'example.mp3' })
