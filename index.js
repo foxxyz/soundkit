@@ -21,7 +21,7 @@ export class SoundKit {
         this.taskQueue = []
         this.defaultFadeDuration = .5
     }
-    async init(groupConfig) {
+    init(groupConfig) {
         this.context = new AudioContext()
 
         this.groups = {}
@@ -74,12 +74,7 @@ export class SoundKit {
         // 25% of total time reaches 98.2% gain
         // More info: https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setTargetAtTime for more info
         gain.setTargetAtTime(value, 0, duration / 4)
-
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve()
-            }, duration * 1000)
-        })
+        return new Promise(res => setTimeout(res, duration * 1000))
     }
     async load(sounds) {
         for(const key in sounds) {
