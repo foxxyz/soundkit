@@ -76,85 +76,93 @@ API Docs
 
 ### Class `SoundKit`
 
-#### .constructor()
+#### `new SoundKit()`
 
 Create a new SoundKit player.
 
-#### .addGroup(parent: string, { name: string, level: float, muted: Boolean })
+#### `soundkit.addGroup(parent: string, { name: string, level?: float, muted?: Boolean })`
 
 Create a sound group.
+
  * `parent`: Which group to add as a child to (optional) (set `undefined` to use this group as a root group)
  * `name`: Group name
  * `level`: Initial gain level (optional) (default: `1`)
  * `muted`: Whether this group should start muted (optional) (default: `false`)
 
-#### .addGroups(groups: Array, parent: string)
+#### `soundkit.addGroups(groups: Array, parent?: string)`
 
 Add an array of groups.
- * `groups`: Array with each element containing group keys (see `addGroup()`)
+
+ * `groups`: Array of groups to add (see [`addGroup()`](#soundkitaddgroupparent-string--name-string-level-float-muted-boolean-) for group object definition)
  * `parent`: Which group to add as children to (optional) (leave `undefined` to add as root)
 
-#### .fadeIn(group: string, duration: float) : Promise
+#### `soundkit.fadeIn(group: string, duration?: float) : Promise`
 
 Gradually decrease gain of group. Resolves when complete.
- * `group`: Name of group to fade (optional) (default: `master`)
+
+ * `group`: Name of group to fade (optional) (default: `"master"`)
  * `duration`: Duration of fade (optional) (default: `SoundKit.defaultFadeDuration`)
 
-#### .fadeOut(group: string, duration: float) : Promise
+#### `soundkit.fadeOut(group: string, duration?: float) : Promise`
 
-Gradually increase gain of group. See `.fadeIn()` for args.
+Gradually increase gain of group. See [`soundkit.fadeIn()`](#soundkitfadeingroup-string-duration-float--promise) for args.
 
-#### .init(groupConfig: Object)
+#### `soundkit.init(groups?: Array)`
 
 Initialize the player.
 
-#### .load(sounds: Object) : Promise
+ * `groups`: Array of groups to add (see [`addGroup()`](#soundkitaddgroupparent-string--name-string-level-float-muted-boolean-) for group object definition) (optional) (defaults to one "master" group)
+
+#### `soundkit.load(sounds: Object) : Promise`
 
 Load one or more sounds and cache them for future use.
+
  * `sounds`: Object with name keys and URI values
 
-#### .play(key: string, { group: string, loop: Boolean, playbackRate: float })
+#### `soundkit.play(key: string, options?: { group?: string, loop?: Boolean, playbackRate?: float })`
 
 Play a previously loaded sound.
- * `key`: Name of sound as previously passed to `load()`
+
+ * `key`: Name of sound as previously passed to [`load()`](#soundkitloadsounds-object--promise)
  * `group`: Name of group to play sound in. (optional) (default: `"master"`)
  * `loop`: Loop sound (optional) (default: `false`)
  * `playbackRate`: Sound playback rate (optional) (default: `1`)
 
-#### .setGain(group: string, level: float)
+#### `soundkit.setGain(group: string, level: float)`
 
 Set group gain.
+
  * `group`: Name of the group to modify
- * `level`: Gain to set (`[0...1]``)
+ * `level`: Gain to set (`[0..1]``)
 
-#### .stop()
+#### `soundkit.stop()`
 
-Stop SoundKit and close AudioContext.
+Stop player and close AudioContext.
 
-#### .mute(group: string, onOrOff: Boolean) : Promise
+#### `soundkit.mute(group: string, enabled?: Boolean) : Promise`
 
 Mute a particular group. Resolves when mute is complete.
- * `group`: Name of group to mute
- * `onOrOff`: Force a state (optional) (toggles mute status when not specified)
 
+ * `group`: Name of group to mute
+ * `enabled`: Force on or off (optional) (toggles mute status if not specified)
 
 ### Class `Sound`
 
-Sound objects are created with calls to `SoundKit.play()` and should not be instantiated manually.
+Sound objects are created with calls to [`soundkit.play()`](#soundkitplaykey-string-options--group-string-loop-boolean-playbackrate-float-) and should not be instantiated manually.
 
-#### .pause()
+#### `sound.pause()`
 
 Pause this sound.
 
-#### .pauseOrResume()
+#### `sound.pauseOrResume()`
 
 Toggle between pause and resume states.
 
-#### .resume()
+#### `sound.resume()`
 
 Resume playing this sound after a pause.
 
-#### .stop()
+#### `sound.stop()`
 
 Stop playing this sound.
 
