@@ -2,12 +2,12 @@ import { SoundKit } from '..'
 
 describe('Core', () => {
     let sk
-    it('creates audio context', async() => {
+    it('creates audio context', () => {
         sk = new SoundKit()
-        await sk.init()
+        sk.init()
         expect(sk.context.state).toBe('running')
     })
-    it('can initialize with multiple root groups', async() => {
+    it('can initialize with multiple root groups', () => {
         sk = new SoundKit()
         const groups = [
             {
@@ -20,18 +20,18 @@ describe('Core', () => {
                 ]
             }
         ]
-        await sk.init(groups)
+        sk.init(groups)
         expect(Object.keys(sk.groups).length).toBe(3)
     })
-    it('removes audio context when closing', async() => {
+    it('removes audio context when closing', () => {
         sk = new SoundKit()
-        await sk.init()
+        sk.init()
         sk.stop()
         expect(sk.context).toBeFalsy()
     })
-    it('handles manually closed contexts', async() => {
+    it('handles manually closed contexts', () => {
         sk = new SoundKit()
-        await sk.init()
+        sk.init()
         sk.context.close()
         sk.stop()
         expect(sk.context).toBeFalsy()
@@ -40,9 +40,9 @@ describe('Core', () => {
 
 describe('Groups', () => {
     let sk
-    beforeEach(async() => {
+    beforeEach(() => {
         sk = new SoundKit()
-        await sk.init()
+        sk.init()
     })
     it('has master group by default', () => {
         expect(sk.groups.master).toBeTruthy()
@@ -87,9 +87,9 @@ describe('Groups', () => {
 
 describe('Errors', () => {
     let sk
-    beforeEach(async() => {
+    beforeEach(() => {
         sk = new SoundKit()
-        await sk.init()
+        sk.init()
     })
     it('should not try to play files if they can not be found', async() => {
         const warning = jest.spyOn(console, 'warn')
@@ -101,12 +101,12 @@ describe('Errors', () => {
 
 describe('Vue Plugin', () => {
     const MockFramework = class {}
-    it('can be installed', async() => {
+    it('can be installed', () => {
         SoundKit.install(MockFramework)
         const app = new MockFramework()
         expect(app.$sound).toBeInstanceOf(SoundKit)
     })
-    it('can be installed', async() => {
+    it('can be installed with a different name', () => {
         SoundKit.install(MockFramework, { name: 'sk' })
         const app = new MockFramework()
         expect(app.$sk).toBeInstanceOf(SoundKit)

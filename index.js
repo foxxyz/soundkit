@@ -18,7 +18,6 @@ export class SoundKit {
         Vue.prototype[`$${name}`] = instance
     }
     constructor() {
-        this.taskQueue = []
         this.defaultFadeDuration = .5
     }
     init(groupConfig) {

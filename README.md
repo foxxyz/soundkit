@@ -38,9 +38,9 @@ import beep from './sounds/beep.mp3'
 
 let sound = new SoundKit()
 async function run() {
-    await sound.init()
+    sound.init()
     await sound.load({ beep })
-    await sound.play('beep')
+    sound.play('beep')
 }
 run()
 ```
@@ -65,7 +65,7 @@ export default {
         this.$sound.play('yell')
     },
     async created() {
-        await this.$sound.init()
+        this.$sound.init()
         await this.$sound.load({ yell })
     }
 }
@@ -104,7 +104,7 @@ Gradually decrease gain of group. Resolves when complete.
 
 Gradually increase gain of group. See `.fadeIn()` for args.
 
-#### .init(groupConfig: Object) : Promise
+#### .init(groupConfig: Object)
 
 Initialize the player.
 
@@ -113,7 +113,7 @@ Initialize the player.
 Load one or more sounds and cache them for future use.
  * `sounds`: Object with name keys and URI values
 
-#### .play(key: string, { group: string, loop: Boolean, playbackRate: float }) : Promise<Sound>
+#### .play(key: string, { group: string, loop: Boolean, playbackRate: float })
 
 Play a previously loaded sound.
  * `key`: Name of sound as previously passed to `load()`

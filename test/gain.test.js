@@ -4,10 +4,10 @@ const delay = (ms) => new Promise((res) => setTimeout(res, ms))
 
 describe('Muting', () => {
     let sk
-    beforeEach(async() => {
+    beforeEach(() => {
         sk = new SoundKit()
         sk.defaultFadeDuration = .001
-        await sk.init()
+        sk.init()
         sk.addGroup('master', { name: 'test' })
     })
     it('mutes successfully', async () => {
@@ -23,10 +23,10 @@ describe('Muting', () => {
 
 describe('Fading', () => {
     let sk
-    beforeEach(async() => {
+    beforeEach(() => {
         sk = new SoundKit()
         sk.defaultFadeDuration = .001
-        await sk.init()
+        sk.init()
         sk.addGroup('master', { name: 'test' })
     })
     it('fades out master', async () => {
@@ -73,9 +73,9 @@ describe('Fading', () => {
 
 describe('Gain Control', () => {
     let sk
-    beforeEach(async() => {
+    beforeEach(() => {
         sk = new SoundKit()
-        await sk.init()
+        sk.init()
     })
     it('sets master gain', async () => {
         sk.setGain('master', 0.5)
