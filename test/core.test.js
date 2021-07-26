@@ -98,17 +98,3 @@ describe('Errors', () => {
         expect(warning).toHaveBeenCalledWith('Sound example not found!')
     })
 })
-
-describe('Vue Plugin', () => {
-    const MockFramework = class {}
-    it('can be installed', () => {
-        SoundKit.install(MockFramework)
-        const app = new MockFramework()
-        expect(app.$sound).toBeInstanceOf(SoundKit)
-    })
-    it('can be installed with a different name', () => {
-        SoundKit.install(MockFramework, { name: 'sk' })
-        const app = new MockFramework()
-        expect(app.$sk).toBeInstanceOf(SoundKit)
-    })
-})

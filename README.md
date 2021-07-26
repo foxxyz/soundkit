@@ -51,7 +51,8 @@ When creating your app:
 
 ```javascript
 import { SoundKit } from 'soundkit'
-app.use(SoundKit) // Use Vue.use(SoundKit) for 2.x
+const player = new SoundKit()
+app.use(player) // Use Vue.use(player) for 2.x
 ```
 
 Inside a component:

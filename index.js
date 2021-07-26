@@ -11,11 +11,17 @@ const decode = async (ctx, url) => {
 }
 
 export class SoundKit {
-    // Vue plugin support
-    static install(Vue, { name='sound', ...options }={}) {
-        // Create singleton
-        const instance = new this(options)
-        Vue.prototype[`$${name}`] = instance
+    // Support Vue components
+    install(app, { name='sound' } = {}) {
+        // Vue 3
+        if (app.config) {
+            app.config.globalProperties[`$${name}`] = this
+            app.provide(`$${name}`, this)
+        }
+        // Vue 2
+        else {
+            app.prototype[`$${name}`] = this
+        }
     }
     constructor({ defaultFadeDuration = 0.5 } = {}) {
         this.defaultFadeDuration = defaultFadeDuration
