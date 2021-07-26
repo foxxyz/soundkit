@@ -17,8 +17,8 @@ export class SoundKit {
         const instance = new this(options)
         Vue.prototype[`$${name}`] = instance
     }
-    constructor() {
-        this.defaultFadeDuration = .5
+    constructor({ defaultFadeDuration = 0.5 } = {}) {
+        this.defaultFadeDuration = defaultFadeDuration
     }
     init(groupConfig) {
         this.context = new AudioContext()

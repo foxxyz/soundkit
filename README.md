@@ -76,11 +76,13 @@ API Docs
 
 ### Class `SoundKit`
 
-#### `new SoundKit()`
+#### `new SoundKit(options?: { defaultFadeDuration? })`
 
 Create a new SoundKit player.
 
-#### `soundkit.addGroup(parent: string, { name: string, level?: float, muted?: Boolean })`
+ * `defaultFadeDuration`: Default duration for all fades in seconds (optional) (default: `0.5`)
+
+#### `soundkit.addGroup(parent: string, group: { name: string, level?: float, muted?: Boolean })`
 
 Create a sound group.
 
