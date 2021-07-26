@@ -65,8 +65,8 @@ describe('BufferSound', () => {
         // After 50 ms the sound should still be playing
         await new Promise(res => setTimeout(res, 50))
         expect(sound.playing).toBeTruthy()
-        // After 100 ms the sound should have stopped playing
-        await new Promise(res => setTimeout(res, 50))
+        // After 110 ms the sound should have stopped playing
+        await new Promise(res => setTimeout(res, 60))
         expect(sound.playing).toBeFalsy()
         expect(sk.sounds.example.instances.length).toBe(0)
 
