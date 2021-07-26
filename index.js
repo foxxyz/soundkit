@@ -71,7 +71,7 @@ export class SoundKit {
         const gain = this.groups[group].gain.gain
         if (Math.abs(value - gain.value) < .03 && !force) return Promise.resolve()
         // 25% of total time reaches 98.2% gain
-        // More info: https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setTargetAtTime for more info
+        // More info: https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setTargetAtTime
         gain.setTargetAtTime(value, 0, duration / 4)
         return new Promise(res => setTimeout(res, duration * 1000))
     }

@@ -49,19 +49,36 @@ describe('BufferSound', () => {
         await sk.load({ example: 'example.mp3' })
         const sound = sk.play('example')
         expect(sk.sounds.example.instances.length).toBe(1)
-        sound.stop()
+        await sound.stop()
+        expect(sound.playing).toBeFalsy()
+        expect(sk.sounds.example.instances.length).toBe(0)
+
+    })
+    it('stops with a longer fade if desired', async () => {
+        await sk.load({ example: 'example.mp3' })
+        // Set the mock sound to be 1 second long
+        window.mockAudioLength = 1000
+        const sound = sk.play('example')
+        expect(sk.sounds.example.instances.length).toBe(1)
+        // Stop in 100ms
+        sound.stop(0.1)
+        // After 50 ms the sound should still be playing
+        await new Promise(res => setTimeout(res, 50))
+        expect(sound.playing).toBeTruthy()
+        // After 100 ms the sound should have stopped playing
+        await new Promise(res => setTimeout(res, 50))
         expect(sound.playing).toBeFalsy()
         expect(sk.sounds.example.instances.length).toBe(0)
 
     })
     it('stops multiple sounds', async () => {
         await sk.load({ example: 'example.mp3' })
-        const [s1, s2] = await Promise.all([
+        const [s1, s2] = [
             sk.play('example'),
             sk.play('example')
-        ])
-        s1.stop()
-        s2.stop()
+        ]
+        await s1.stop()
+        await s2.stop()
         expect(sk.sounds.example.instances.length).toBe(0)
     })
     it('pauses successfully', async () => {

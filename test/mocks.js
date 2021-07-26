@@ -69,6 +69,8 @@ class Destination extends Node {
     }
 }
 
+window.mockAudioLength = 50 // ms
+
 // Mock the web audio API so tests work in node, the real API only works in browser
 window.AudioContext = class {
     constructor() {
@@ -78,11 +80,16 @@ window.AudioContext = class {
     createBufferSource() {
         const sourceNode = new Node({})
         sourceNode.playbackRate = {}
-        sourceNode.start = () => sourceNode.playing = true
-        sourceNode.stop = () => sourceNode.playing = false
-        setTimeout(() => {
-            if(sourceNode.onended) sourceNode.onended()
-        }, 0)
+        sourceNode.start = () => {
+            sourceNode.playing = true
+            sourceNode.playback = setTimeout(() => {
+                if(sourceNode.onended) sourceNode.onended()
+            }, window.mockAudioLength)
+        }
+        sourceNode.stop = () => {
+            clearTimeout(sourceNode.playback)
+            sourceNode.playing = false
+        }
         return sourceNode
     }
     createGain() {

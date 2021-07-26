@@ -96,16 +96,18 @@ Add an array of groups.
  * `groups`: Array of groups to add (see [`addGroup()`](#soundkitaddgroupparent-string--name-string-level-float-muted-boolean-) for group object definition)
  * `parent`: Which group to add as children to (optional) (leave `undefined` to add as root)
 
-#### `soundkit.fadeIn(group: string, duration?: float) : Promise`
+#### `soundkit.fadeIn(group: string, duration?: number) : Promise`
 
 Gradually decrease gain of group. Resolves when complete.
 
  * `group`: Name of group to fade (optional) (default: `"master"`)
- * `duration`: Duration of fade (optional) (default: `SoundKit.defaultFadeDuration`)
+ * `duration`: Duration of fade in seconds (optional) (default: `SoundKit.defaultFadeDuration`)
 
 #### `soundkit.fadeOut(group: string, duration?: float) : Promise`
 
-Gradually increase gain of group. See [`soundkit.fadeIn()`](#soundkitfadeingroup-string-duration-float--promise) for args.
+Gradually increase gain of group. Resolves when complete.
+
+See [`soundkit.fadeIn()`](#soundkitfadeingroup-string-duration-float--promise) for args.
 
 #### `soundkit.init(groups?: Array)`
 
@@ -162,9 +164,11 @@ Toggle between pause and resume states.
 
 Resume playing this sound after a pause.
 
-#### `sound.stop()`
+#### `sound.stop(fadeDuration? : Number) : Promise`
 
-Stop playing this sound.
+Stop playing sound. Resolves when fully stopped.
+
+ * `fadeDuration`: How many seconds to fade out before stopping (optional) (defaults to 0.05 to decrease waveform interruption clicks/pops)
 
 Contributing & Tests
 --------------------
