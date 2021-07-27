@@ -60,6 +60,7 @@ describe('BufferSound', () => {
         window.mockAudioLength = 1000
         const sound = sk.play('example')
         expect(sk.sounds.example.instances.length).toBe(1)
+        expect(sound.gain.gain.value).toEqual(1)
         // Stop in 100ms
         sound.stop(0.1)
         // After 50 ms the sound should still be playing
@@ -68,6 +69,7 @@ describe('BufferSound', () => {
         // After 110 ms the sound should have stopped playing
         await new Promise(res => setTimeout(res, 60))
         expect(sound.playing).toBeFalsy()
+        expect(sound.gain.gain.value).toEqual(0)
         expect(sk.sounds.example.instances.length).toBe(0)
 
     })

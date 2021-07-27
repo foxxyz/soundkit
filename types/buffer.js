@@ -35,7 +35,7 @@ export class BufferSound extends BaseSound {
         this.source.playbackRate.value = 1
     }
     async stop(fadeDuration = 0.05) {
-        //this.gain.gain.setTargetAtTime(0, 0, fadeDuration / 4)
+        this.gain.gain.setTargetAtTime(0, 0, fadeDuration / 4)
         await new Promise(res => setTimeout(res, fadeDuration * 1000))
         this.source.stop()
         super.stop()
