@@ -3,6 +3,10 @@
   "version": "2.0.2",
   "description": "Easy Sound Management & Playback",
   "main": "index.js",
+  "files": [
+    "types/*",
+    "index.js"
+  ],
   "scripts": {
     "test": "jest"
   },
