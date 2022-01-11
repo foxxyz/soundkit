@@ -97,7 +97,7 @@ window.AudioContext = class {
     }
     decodeAudioData(buffer) {
         return new Promise(res => {
-            delay(1)
+            delay(10)
             res(new Int32Array(buffer))
         })
     }
@@ -109,7 +109,7 @@ window.AudioContext = class {
 // Mock browser native fetch
 window.fetch = () => {
     return new Promise(res => {
-        delay(1)
+        delay(10)
         res(new Response())
     })
 }

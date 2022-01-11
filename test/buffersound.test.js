@@ -15,6 +15,14 @@ describe('BufferSound', () => {
         await sk.load({ example: 'example.mp3' })
         expect(sk.sounds.example).toEqual(true)
     })
+    it('collates multiple successive loads', async () => {
+        const loader = jest.spyOn(sk.context, 'decodeAudioData')
+        await Promise.all([
+            sk.load({ example: 'example.mp3' }),
+            sk.load({ example: 'example.mp3' })
+        ])
+        expect(loader).toHaveBeenCalledTimes(1)
+    })
     it('plays successfully', async () => {
         await sk.load({ example: 'example.mp3' })
         const sound = sk.play('example')

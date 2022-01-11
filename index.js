@@ -82,15 +82,26 @@ export class SoundKit {
         return new Promise(res => setTimeout(res, duration * 1000))
     }
     async load(sounds) {
-        for(const key in sounds) {
+        const tasks = []
+        for(const [key, sound] of Object.entries(sounds)) {
             // Ignore if this sound already exists
-            if (this.sounds[key]) continue
-            const sound = sounds[key]
+            if (this.sounds[key]) {
+                tasks.push(this.sounds[key].loading)
+                continue
+            }
+            // Kick-off the loading tasks for this sound
+            // Don't `await` here or multiple successive calls could cause buffers
+            // to be decoded multiple times
+            const loading = decode(this.context, sound)
             this.sounds[key] = {
-                buffer: await decode(this.context, sound),
+                loading,
                 instances: []
             }
+            tasks.push(loading)
+            // Resolve to buffer when done loading
+            loading.then(buff => this.sounds[key].buffer = buff)
         }
+        return Promise.all(tasks)
     }
     play(key, options) {
         // Ensure sound is available
