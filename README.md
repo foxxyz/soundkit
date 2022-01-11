@@ -55,7 +55,22 @@ const player = new SoundKit()
 app.use(player) // Use Vue.use(player) for 2.x
 ```
 
-Inside a component:
+Inside a component (Vue 3.x / Composition API):
+
+```javascript
+import { inject } from 'vue'
+import yell from './sounds/yell.ogg'
+
+const sound = inject('$sound')
+sound.init()
+await sound.load({ yell })
+
+function click() {
+    sound.play('yell')
+}
+```
+
+Inside a component (Vue 2.x / Options API):
 
 ```javascript
 import yell from './sounds/yell.ogg'
