@@ -39,7 +39,11 @@ export class SoundKit {
         // If channel already exists, ignore
         if (this.groups[name]) return console.warn(`Group ${name} already exists!`)
 
-        const group = { level, muted }
+        const group = {
+            defaultLevel: level,
+            level,
+            muted
+        }
 
         // Create gain
         const gainNode = this.context.createGain()
@@ -64,22 +68,23 @@ export class SoundKit {
     }
     fadeIn(group) {
         group = group || 'master'
-        return this.fadeTo(this.groups[group].level, ...arguments)
+        return this.fadeTo(this.groups[group].defaultLevel, ...arguments)
     }
     fadeOut() {
         return this.fadeTo(0, ...arguments)
     }
-    fadeTo(value, group, duration, force=false) {
-        group = group || 'master'
+    async fadeTo(value, groupName, duration, force=false) {
+        const group = this.groups[groupName || 'master']
         duration = duration === undefined ? this.defaultFadeDuration : duration
         // Don't fade if this group is muted
-        if (!force && this.groups[group].muted) return Promise.resolve()
-        const gain = this.groups[group].gain.gain
+        if (!force && group.muted) return Promise.resolve()
+        const gain = group.gain.gain
         if (Math.abs(value - gain.value) < .03 && !force) return Promise.resolve()
         // 25% of total time reaches 98.2% gain
         // More info: https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setTargetAtTime
         gain.setTargetAtTime(value, 0, duration / 4)
-        return new Promise(res => setTimeout(res, duration * 1000))
+        await new Promise(res => setTimeout(res, duration * 1000))
+        group.level = value
     }
     async load(sounds) {
         const tasks = []
@@ -138,12 +143,10 @@ export class SoundKit {
         if (this.context && this.context.state !== 'closed') this.context.close()
         this.context = undefined
     }
-    mute(group, onOrOff) {
-        group = group || 'master'
-        const g = this.groups[group]
-        const regularLevel = g.level
-        if (!g.muted) g.muted = false
-        g.muted = onOrOff !== undefined ? onOrOff : !g.muted
-        return this.fadeTo(g.muted ? 0 : regularLevel, group, undefined, true)
+    mute(groupName, onOrOff) {
+        const group = this.groups[groupName || 'master']
+        if (!group.muted) group.muted = false
+        group.muted = onOrOff !== undefined ? onOrOff : !group.muted
+        return this.fadeTo(group.muted ? 0 : group.defaultLevel, groupName, undefined, true)
     }
 }

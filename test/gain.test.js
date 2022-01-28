@@ -38,7 +38,12 @@ describe('Fading', () => {
         await sk.fadeIn()
         expect(sk.groups.master.gain.gain.value).toBe(1)
     })
-    it('can fade with duration 0', async () => {
+    it('fades in if gain set manually', async () => {
+        sk.setGain('master', 0)
+        await sk.fadeIn()
+        expect(sk.groups.master.gain.gain.value).toBe(1)
+    })
+    it('fades with duration 0', async () => {
         sk.defaultFadeDuration = 2
         const time = Date.now()
         await sk.fadeOut('master', 0)
