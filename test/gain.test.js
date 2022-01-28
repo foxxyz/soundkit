@@ -38,6 +38,12 @@ describe('Fading', () => {
         await sk.fadeIn()
         expect(sk.groups.master.gain.gain.value).toBe(1)
     })
+    it('can fade with duration 0', async () => {
+        sk.defaultFadeDuration = 2
+        const time = Date.now()
+        await sk.fadeOut('master', 0)
+        expect(Date.now() - time).toBeLessThan(10)
+    })
     it('fades out specific groups', async () => {
         await sk.fadeOut('test')
         expect(sk.groups.test.gain.gain.value).toBe(0)

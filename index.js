@@ -71,7 +71,7 @@ export class SoundKit {
     }
     fadeTo(value, group, duration, force=false) {
         group = group || 'master'
-        duration = duration || this.defaultFadeDuration
+        duration = duration === undefined ? this.defaultFadeDuration : duration
         // Don't fade if this group is muted
         if (!force && this.groups[group].muted) return Promise.resolve()
         const gain = this.groups[group].gain.gain
