@@ -31,19 +31,19 @@
   },
   "dependencies": {
     "events": "^3.3.0",
-    "nanoid": "^3.1.30"
+    "nanoid": "^3.2.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/foxxyz/soundkit"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.7",
+    "@babel/core": "^7.16.12",
     "@babel/plugin-proposal-throw-expressions": "^7.16.7",
-    "@babel/preset-env": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
     "babel-jest": "^27.4.6",
-    "eslint": "^8.6.0",
-    "eslint-plugin-jest": "^25.3.4",
+    "eslint": "^8.7.0",
+    "eslint-plugin-jest": "^26.0.0",
     "jest": "^27.4.7"
   },
   "author": "Ivo Janssen <hello@ivo.la>",
