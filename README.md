@@ -114,14 +114,14 @@ Add an array of groups.
  * `groups`: Array of groups to add (see [`addGroup()`](#soundkitaddgroupparent-string--name-string-level-float-muted-boolean-) for group object definition)
  * `parent`: Which group to add as children to (optional) (leave `undefined` to add as root)
 
-#### `soundkit.fadeIn(group: string, duration?: number) : Promise`
+#### `soundkit.fadeIn(groupName: string, duration?: number) : Promise`
 
 Gradually decrease gain of group. Resolves when complete.
 
- * `group`: Name of group to fade (optional) (default: `"master"`)
+ * `groupName`: Name of group to fade (optional) (default: `"master"`)
  * `duration`: Duration of fade in seconds (optional) (default: `SoundKit.defaultFadeDuration`)
 
-#### `soundkit.fadeOut(group: string, duration?: float) : Promise`
+#### `soundkit.fadeOut(groupName: string, duration?: float) : Promise`
 
 Gradually increase gain of group. Resolves when complete.
 
@@ -148,22 +148,22 @@ Play a previously loaded sound.
  * `loop`: Loop sound (optional) (default: `false`)
  * `playbackRate`: Sound playback rate (optional) (default: `1`)
 
-#### `soundkit.setGain(group: string, level: float)`
+#### `soundkit.setGain(groupName: string, level: float)`
 
 Set group gain.
 
- * `group`: Name of the group to modify
- * `level`: Gain to set (`[0..1]``)
+ * `groupName`: Name of the group to modify
+ * `level`: Gain to set (`[0..1]`)
 
 #### `soundkit.stop()`
 
 Stop player and close AudioContext.
 
-#### `soundkit.mute(group: string, enabled?: Boolean) : Promise`
+#### `soundkit.mute(groupName: string, enabled?: Boolean) : Promise`
 
 Mute a particular group. Resolves when mute is complete.
 
- * `group`: Name of group to mute
+ * `groupName`: Name of group to mute
  * `enabled`: Force on or off (optional) (toggles mute status if not specified)
 
 ### Class `Sound`
