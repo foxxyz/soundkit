@@ -114,7 +114,7 @@ export class SoundKit {
         if (!this.sounds[key]) {
             return console.warn(`Sound ${key} not found!`)
         }
-        const sound = this._play(BufferSound, { buffer: this.sounds[key].buffer }, options)
+        const sound = this._play(BufferSound, this.sounds[key].buffer, options)
 
         // Track instances and remove when done
         const instances = this.sounds[key].instances
@@ -130,7 +130,7 @@ export class SoundKit {
         let destination = this.groups.master
         if (group) destination = this.groups[group]
 
-        const sound = new soundClass(null, arg, this.context, destination, { loop, playbackRate })
+        const sound = new soundClass(arg, this.context, destination, { loop, playbackRate })
         sound.play()
         return sound
     }

@@ -2,10 +2,10 @@ import { nanoid } from 'nanoid'
 import { EventEmitter } from 'events'
 
 export class BaseSound extends EventEmitter {
-    constructor(id) {
+    constructor() {
         super()
         // Generate random id if none given
-        this.id = typeof id === 'string' ? id : nanoid(10)
+        this.id = nanoid(10)
         this.playing = false
     }
     ended() {

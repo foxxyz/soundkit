@@ -1,8 +1,8 @@
 import { BaseSound } from './base'
 
 export class BufferSound extends BaseSound {
-    constructor(id, { buffer }, context, group, { loop, playbackRate }) {
-        super(id)
+    constructor(buffer, context, group, { loop, playbackRate }) {
+        super()
         this.source = context.createBufferSource()
         this.source.channelCount = buffer.numberOfChannels
         this.source.buffer = buffer
