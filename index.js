@@ -12,14 +12,13 @@ const decode = async (ctx, url) => {
 
 export class SoundKit {
     // Support Vue components
-    install(app, { name='sound' } = {}) {
+    install(app, { name = 'sound' } = {}) {
         // Vue 3
         if (app.config) {
             app.config.globalProperties[`$${name}`] = this
             app.provide(`$${name}`, this)
-        }
         // Vue 2
-        else {
+        } else {
             app.prototype[`$${name}`] = this
         }
     }
@@ -35,7 +34,7 @@ export class SoundKit {
         this.sounds = {}
     }
     // Create a group of sounds
-    addGroup(parent, { name, level=1, muted }) {
+    addGroup(parent, { name, level = 1, muted }) {
         // If channel already exists, ignore
         if (this.groups[name]) return console.warn(`Group ${name} already exists!`)
 
@@ -67,27 +66,27 @@ export class SoundKit {
             if (group.children) this.addGroups(group.children, group.name)
         }
     }
-    fadeIn(group) {
+    fadeIn(group, ...args) {
         group = group || 'master'
-        return this.fadeTo(this.groups[group].defaultLevel, ...arguments)
+        return this.fadeTo(this.groups[group].defaultLevel, group, ...args)
     }
-    fadeOut() {
-        return this.fadeTo(0, ...arguments)
+    fadeOut(...args) {
+        return this.fadeTo(0, ...args)
     }
-    async fadeTo(value, groupName, duration, force=false) {
+    async fadeTo(value, groupName, duration, force = false) {
         const group = this.groups[groupName || 'master']
         duration = duration === undefined ? this.defaultFadeDuration : duration
         // Don't fade if this group is muted
         if (!force && group.muted) return Promise.resolve()
         const gain = group.gain.gain
-        if (Math.abs(value - gain.value) < .03 && !force) return Promise.resolve()
+        if (Math.abs(value - gain.value) < 0.03 && !force) return Promise.resolve()
         // 25% of total time reaches 98.2% gain
         // More info: https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setTargetAtTime
         gain.setTargetAtTime(value, 0, duration / 4)
         await new Promise(res => setTimeout(res, duration * 1000))
         group.level = value
     }
-    async load(sounds) {
+    load(sounds) {
         const tasks = []
         for(const [key, sound] of Object.entries(sounds)) {
             // Ignore if this sound already exists
@@ -125,7 +124,7 @@ export class SoundKit {
 
         return sound
     }
-    _play(soundClass, arg, { group, loop, playbackRate }={}) {
+    _play(soundClass, arg, { group, loop, playbackRate } = {}) {
         // Connect to different group if required
         let destination = this.groups.master
         if (group) destination = this.groups[group]

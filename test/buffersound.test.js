@@ -61,7 +61,6 @@ describe('BufferSound', () => {
         await sound.stop()
         expect(sound.playing).toBeFalsy()
         expect(sk.sounds.example.instances.length).toBe(0)
-
     })
     it('stops with a longer fade if desired', async () => {
         await sk.load({ example: 'example.mp3' })
@@ -80,7 +79,6 @@ describe('BufferSound', () => {
         expect(sound.playing).toBeFalsy()
         expect(sound.gain.gain.value).toEqual(0)
         expect(sk.sounds.example.instances.length).toBe(0)
-
     })
     it('stops multiple sounds', async () => {
         await sk.load({ example: 'example.mp3' })

@@ -1,12 +1,12 @@
 import { SoundKit } from '..'
 
-const delay = (ms) => new Promise((res) => setTimeout(res, ms))
+const delay = ms => new Promise(res => setTimeout(res, ms))
 
 describe('Muting', () => {
     let sk
     beforeEach(() => {
         sk = new SoundKit()
-        sk.defaultFadeDuration = .001
+        sk.defaultFadeDuration = 0.001
         sk.init()
         sk.addGroup('master', { name: 'test' })
     })
@@ -25,7 +25,7 @@ describe('Fading', () => {
     let sk
     beforeEach(() => {
         sk = new SoundKit()
-        sk.defaultFadeDuration = .001
+        sk.defaultFadeDuration = 0.001
         sk.init()
         sk.addGroup('master', { name: 'test' })
     })
@@ -71,9 +71,9 @@ describe('Fading', () => {
         expect(sk.groups.test.gain.gain.value).toBe(0)
     })
     it('ignores if already at requested level', async () => {
-        sk.groups.test.gain.gain.value = .98
+        sk.groups.test.gain.gain.value = 0.98
         await sk.fadeTo(1, 'test')
-        expect(sk.groups.test.gain.gain.value).toBe(.98)
+        expect(sk.groups.test.gain.gain.value).toBe(0.98)
     })
     it('overrides muted state with force argument', async () => {
         await sk.mute('test', true)
@@ -82,7 +82,7 @@ describe('Fading', () => {
     })
     it('fades in when original level set to 0', async () => {
         const sk2 = new SoundKit()
-        sk2.defaultFadeDuration = .001
+        sk2.defaultFadeDuration = 0.001
         sk2.init()
         sk2.addGroup('master', { name: 'test', level: 0 })
         await sk2.fadeIn('test')

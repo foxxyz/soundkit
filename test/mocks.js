@@ -1,4 +1,4 @@
-const delay = (ms) => new Promise((res) => setTimeout(res, ms))
+const delay = ms => new Promise(res => setTimeout(res, ms))
 
 // Mock Web Audio API Connector
 class Connector {
@@ -14,7 +14,7 @@ class Connector {
 
 // Mock Web Audio API Node
 class Node {
-    constructor({ inputs=1, outputs=1 }) {
+    constructor({ inputs = 1, outputs = 1 }) {
         this.gain = new GainNode()
         this.outputs = []
         this.inputs = []
@@ -26,7 +26,7 @@ class Node {
         }
     }
     connect(destination, output, input) {
-        this.outputs[output|0].connect(destination, input|0)
+        this.outputs[output | 0].connect(destination, input | 0)
     }
     disconnect() {
         this.outputs = []
@@ -77,6 +77,7 @@ window.AudioContext = class {
         this.state = 'running',
         this.destination = new Destination()
     }
+    // eslint-disable-next-line
     createBufferSource() {
         const sourceNode = new Node({})
         sourceNode.playbackRate = {}
@@ -92,9 +93,11 @@ window.AudioContext = class {
         }
         return sourceNode
     }
+    // eslint-disable-next-line
     createGain() {
         return new Node({})
     }
+    // eslint-disable-next-line
     decodeAudioData(buffer) {
         return new Promise(res => {
             delay(10)
@@ -107,9 +110,7 @@ window.AudioContext = class {
 }
 
 // Mock browser native fetch
-window.fetch = () => {
-    return new Promise(res => {
-        delay(10)
-        res(new Response())
-    })
-}
+window.fetch = () => new Promise(res => {
+    delay(10)
+    res(new Response())
+})
