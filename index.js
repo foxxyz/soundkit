@@ -40,7 +40,8 @@ export class SoundKit {
         if (this.groups[name]) return console.warn(`Group ${name} already exists!`)
 
         const group = {
-            defaultLevel: level,
+            // If level is 0, set default to 1 otherwise fading can never work
+            defaultLevel: level ? level : 1,
             level,
             muted
         }

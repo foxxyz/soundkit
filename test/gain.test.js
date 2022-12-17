@@ -80,6 +80,14 @@ describe('Fading', () => {
         await sk.fadeTo(1, 'test', undefined, true)
         expect(sk.groups.test.gain.gain.value).toBe(1)
     })
+    it('fades in when original level set to 0', async () => {
+        const sk2 = new SoundKit()
+        sk2.defaultFadeDuration = .001
+        sk2.init()
+        sk2.addGroup('master', { name: 'test', level: 0 })
+        await sk2.fadeIn('test')
+        expect(sk2.groups.test.gain.gain.value).toBe(1)
+    })
 })
 
 describe('Gain Control', () => {
