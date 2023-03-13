@@ -7,16 +7,16 @@ describe('BufferSound', () => {
         sk = new SoundKit()
         sk.init()
     })
-    it('loads from file', async () => {
+    it('loads from file', async() => {
         await sk.load({ example: 'example.mp3' })
         expect(sk.sounds.example).toBeTruthy()
     })
-    it('ignores duplicates', async () => {
+    it('ignores duplicates', async() => {
         sk.sounds.example = true
         await sk.load({ example: 'example.mp3' })
         expect(sk.sounds.example).toEqual(true)
     })
-    it('collates multiple successive loads', async () => {
+    it('collates multiple successive loads', async() => {
         const loader = jest.spyOn(sk.context, 'decodeAudioData')
         await Promise.all([
             sk.load({ example: 'example.mp3' }),
@@ -24,13 +24,13 @@ describe('BufferSound', () => {
         ])
         expect(loader).toHaveBeenCalledTimes(1)
     })
-    it('plays successfully', async () => {
+    it('plays successfully', async() => {
         await sk.load({ example: 'example.mp3' })
         const sound = sk.play('example')
         expect(sound).toBeTruthy()
         expect(sound.playing).toBeTruthy()
     })
-    it('plays multiple simulataneous sounds', async () => {
+    it('plays multiple simulataneous sounds', async() => {
         await sk.load({ example: 'example.mp3', test: 'test.mp3' })
         sk.play('example')
         sk.play('test')
@@ -38,23 +38,23 @@ describe('BufferSound', () => {
         expect(sk.sounds.example.instances.length).toBe(2)
         expect(sk.sounds.test.instances.length).toBe(1)
     })
-    it('supports looping', async () => {
+    it('supports looping', async() => {
         await sk.load({ example: 'example.mp3' })
         const sound = sk.play('example', { loop: true })
         expect(sound.source.loop).toBe(true)
     })
-    it('supports variable playback rates', async () => {
+    it('supports variable playback rates', async() => {
         await sk.load({ example: 'example.mp3' })
         const sound = sk.play('example', { playbackRate: 1.5 })
         expect(sound.source.playbackRate.value).toBe(1.5)
     })
-    it('supports grouping', async () => {
+    it('supports grouping', async() => {
         sk.addGroup('master', { name: 'test' })
         await sk.load({ example: 'example.mp3' })
         const sound = sk.play('example', { group: 'test' })
         expect(sound.playing).toBeTruthy()
     })
-    it('stops successfully', async () => {
+    it('stops successfully', async() => {
         await sk.load({ example: 'example.mp3' })
         const sound = sk.play('example')
         expect(sk.sounds.example.instances.length).toBe(1)
@@ -62,7 +62,7 @@ describe('BufferSound', () => {
         expect(sound.playing).toBeFalsy()
         expect(sk.sounds.example.instances.length).toBe(0)
     })
-    it('stops with a longer fade if desired', async () => {
+    it('stops with a longer fade if desired', async() => {
         await sk.load({ example: 'example.mp3' })
         // Set the mock sound to be 1 second long
         window.mockAudioLength = 1000
@@ -80,7 +80,7 @@ describe('BufferSound', () => {
         expect(sound.gain.gain.value).toEqual(0)
         expect(sk.sounds.example.instances.length).toBe(0)
     })
-    it('stops multiple sounds', async () => {
+    it('stops multiple sounds', async() => {
         await sk.load({ example: 'example.mp3' })
         const [s1, s2] = [
             sk.play('example'),
@@ -90,7 +90,7 @@ describe('BufferSound', () => {
         await s2.stop()
         expect(sk.sounds.example.instances.length).toBe(0)
     })
-    it('pauses successfully', async () => {
+    it('pauses successfully', async() => {
         await sk.load({ example: 'example.mp3' })
         const sound = sk.play('example')
         sound.pause()
@@ -98,7 +98,7 @@ describe('BufferSound', () => {
         sound.pause()
         expect(sound.source.playbackRate.value).toBe(0)
     })
-    it('pause or resumes successfully', async () => {
+    it('pause or resumes successfully', async() => {
         await sk.load({ example: 'example.mp3' })
         const sound = sk.play('example')
         sound.pauseOrResume()
@@ -106,7 +106,7 @@ describe('BufferSound', () => {
         sound.pauseOrResume()
         expect(sound.source.playbackRate.value).toBe(1)
     })
-    it('resumes successfully', async () => {
+    it('resumes successfully', async() => {
         await sk.load({ example: 'example.mp3' })
         const sound = sk.play('example')
         sound.pause()
@@ -116,7 +116,7 @@ describe('BufferSound', () => {
         sound.resume()
         expect(sound.source.playbackRate.value).toBe(1)
     })
-    it('emits end events when ended', async () => {
+    it('emits end events when ended', async() => {
         await sk.load({ example: 'example.mp3' })
         const sound = sk.play('example')
         expect(sound.playing).toBeTruthy()

@@ -4,7 +4,7 @@ const DEFAULT_GROUPS = [
     { name: 'master', level: 1 }
 ]
 
-const decode = async (ctx, url) => {
+const decode = async(ctx, url) => {
     const res = await fetch(url)
     const buff = await res.arrayBuffer()
     return ctx.decodeAudioData(buff)
@@ -60,7 +60,7 @@ export class SoundKit {
     }
     // Add a group hierarchy at once
     addGroups(groups, parent) {
-        for(const group of groups) {
+        for (const group of groups) {
             this.addGroup(parent, group)
             // Recursively add children
             if (group.children) this.addGroups(group.children, group.name)
@@ -88,7 +88,7 @@ export class SoundKit {
     }
     load(sounds) {
         const tasks = []
-        for(const [key, sound] of Object.entries(sounds)) {
+        for (const [key, sound] of Object.entries(sounds)) {
             // Ignore if this sound already exists
             if (this.sounds[key]) {
                 tasks.push(this.sounds[key].loading)

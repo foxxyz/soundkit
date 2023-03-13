@@ -18,10 +18,10 @@ class Node {
         this.gain = new GainNode()
         this.outputs = []
         this.inputs = []
-        for(let i = 0; i < inputs; i++) {
+        for (let i = 0; i < inputs; i++) {
             this.inputs[i] = new Connector()
         }
-        for(let i = 0; i < outputs; i++) {
+        for (let i = 0; i < outputs; i++) {
             this.outputs[i] = new Connector()
         }
     }
@@ -84,7 +84,7 @@ window.AudioContext = class {
         sourceNode.start = () => {
             sourceNode.playing = true
             sourceNode.playback = setTimeout(() => {
-                if(sourceNode.onended) sourceNode.onended()
+                if (sourceNode.onended) sourceNode.onended()
             }, window.mockAudioLength)
         }
         sourceNode.stop = () => {

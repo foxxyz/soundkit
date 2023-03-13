@@ -10,7 +10,7 @@ describe('Muting', () => {
         sk.init()
         sk.addGroup('master', { name: 'test' })
     })
-    it('mutes successfully', async () => {
+    it('mutes successfully', async() => {
         sk.groups.master.muted = false
         await sk.mute()
         expect(sk.groups.master.muted).toBe(true)
@@ -29,58 +29,58 @@ describe('Fading', () => {
         sk.init()
         sk.addGroup('master', { name: 'test' })
     })
-    it('fades out master', async () => {
+    it('fades out master', async() => {
         await sk.fadeOut()
         expect(sk.groups.master.gain.gain.value).toBe(0)
     })
-    it('fades in master', async () => {
+    it('fades in master', async() => {
         await sk.fadeOut()
         await sk.fadeIn()
         expect(sk.groups.master.gain.gain.value).toBe(1)
     })
-    it('fades in if gain set manually', async () => {
+    it('fades in if gain set manually', async() => {
         sk.setGain('master', 0)
         await sk.fadeIn()
         expect(sk.groups.master.gain.gain.value).toBe(1)
     })
-    it('fades with duration 0', async () => {
+    it('fades with duration 0', async() => {
         sk.defaultFadeDuration = 2
         const time = Date.now()
         await sk.fadeOut('master', 0)
         expect(Date.now() - time).toBeLessThan(10)
     })
-    it('fades out specific groups', async () => {
+    it('fades out specific groups', async() => {
         await sk.fadeOut('test')
         expect(sk.groups.test.gain.gain.value).toBe(0)
         expect(sk.groups.master.gain.gain.value).toBe(1)
     })
-    it('fades in specific groups', async () => {
+    it('fades in specific groups', async() => {
         await sk.fadeOut('test')
         await sk.fadeIn('test')
         expect(sk.groups.test.gain.gain.value).toBe(1)
     })
-    it('fades to specific levels', async () => {
+    it('fades to specific levels', async() => {
         await sk.fadeTo(0.3, 'master')
         await sk.fadeTo(0.5, 'test')
         expect(sk.groups.master.gain.gain.value).toBe(0.3)
         expect(sk.groups.test.gain.gain.value).toBe(0.5)
     })
-    it('does not override muted groups', async () => {
+    it('does not override muted groups', async() => {
         await sk.mute('test', true)
         await sk.fadeTo(1, 'test')
         expect(sk.groups.test.gain.gain.value).toBe(0)
     })
-    it('ignores if already at requested level', async () => {
+    it('ignores if already at requested level', async() => {
         sk.groups.test.gain.gain.value = 0.98
         await sk.fadeTo(1, 'test')
         expect(sk.groups.test.gain.gain.value).toBe(0.98)
     })
-    it('overrides muted state with force argument', async () => {
+    it('overrides muted state with force argument', async() => {
         await sk.mute('test', true)
         await sk.fadeTo(1, 'test', undefined, true)
         expect(sk.groups.test.gain.gain.value).toBe(1)
     })
-    it('fades in when original level set to 0', async () => {
+    it('fades in when original level set to 0', async() => {
         const sk2 = new SoundKit()
         sk2.defaultFadeDuration = 0.001
         sk2.init()
@@ -96,13 +96,13 @@ describe('Gain Control', () => {
         sk = new SoundKit()
         sk.init()
     })
-    it('sets master gain', async () => {
+    it('sets master gain', async() => {
         sk.setGain('master', 0.5)
         await delay(1) // Wait for setValueAtTime to run
         expect(sk.groups.master.level).toBe(0.5)
         expect(sk.groups.master.gain.gain.value).toBe(0.5)
     })
-    it('does not override muted groups', async () => {
+    it('does not override muted groups', async() => {
         sk.groups.master.muted = true
         sk.groups.master.gain.gain.value = 0
         sk.setGain('master', 0.5)
