@@ -1,4 +1,4 @@
-import { BufferSound } from './types'
+import { BufferSound } from './types/index.js'
 
 const DEFAULT_GROUPS = [
     { name: 'master', level: 1 }
