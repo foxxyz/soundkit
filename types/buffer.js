@@ -1,4 +1,4 @@
-import { BaseSound } from './base'
+import { BaseSound } from './base.js'
 
 export class BufferSound extends BaseSound {
     constructor(buffer, context, group, { loop, playbackRate }) {

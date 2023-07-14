@@ -1,1 +1,1 @@
-export { BufferSound } from './buffer'
+export { BufferSound } from './buffer.js'
