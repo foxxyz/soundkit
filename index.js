@@ -113,6 +113,9 @@ export class SoundKit {
         if (!this.sounds[key]) {
             return console.warn(`Sound ${key} not found!`)
         }
+        if (!this.sounds[key].buffer) {
+            return console.warn(`Sound ${key} not yet loaded!`)
+        }
         const sound = this._play(BufferSound, this.sounds[key].buffer, options)
 
         // Track instances and remove when done
