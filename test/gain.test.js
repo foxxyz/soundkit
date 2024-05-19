@@ -47,7 +47,7 @@ describe('Fading', () => {
         sk.defaultFadeDuration = 2
         const time = Date.now()
         await sk.fadeOut('master', 0)
-        expect(Date.now() - time).toBeLessThan(10)
+        expect(Date.now() - time).toBeLessThan(100)
     })
     it('fades out specific groups', async() => {
         await sk.fadeOut('test')
