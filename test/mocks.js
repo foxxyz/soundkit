@@ -89,6 +89,7 @@ window.AudioContext = class {
         }
         sourceNode.stop = () => {
             clearTimeout(sourceNode.playback)
+            if (sourceNode.onended) sourceNode.onended()
             sourceNode.playing = false
         }
         return sourceNode
