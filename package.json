@@ -1,6 +1,6 @@
 {
   "name": "soundkit",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "description": "Easy Sound Management & Playback",
   "main": "index.js",
   "engines": {
