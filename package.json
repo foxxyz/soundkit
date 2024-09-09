@@ -44,8 +44,8 @@
   },
   "devDependencies": {
     "@appliedminds/eslint-config": "^2.0.1",
-    "eslint": "^9.3.0",
-    "eslint-plugin-jest": "^28.5.0",
+    "eslint": "^9.10.0",
+    "eslint-plugin-jest": "^28.8.3",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0"
   },
