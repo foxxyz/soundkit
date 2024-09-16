@@ -11,7 +11,7 @@
     "index.js"
   ],
   "scripts": {
-    "test": "node --test  --experimental-test-coverage --experimental-test-module-mocks",
+    "test": "node --test  --experimental-test-coverage",
     "lint": "eslint"
   },
   "peerDependencies": {
