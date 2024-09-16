@@ -18,7 +18,7 @@ Features:
 Requirements
 ------------
 
- * Node 16+
+ * Node 18+
 
 Installation
 ------------
