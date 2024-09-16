@@ -1,4 +1,6 @@
-import { SoundKit } from '..'
+import assert from 'node:assert/strict'
+import { beforeEach, describe, it } from 'node:test'
+import { SoundKit } from '../index.js'
 
 describe('Vue 2 Plugin', () => {
     let MockFramework
@@ -9,13 +11,13 @@ describe('Vue 2 Plugin', () => {
         const player = new SoundKit()
         player.install(MockFramework)
         const app = new MockFramework()
-        expect(app.$sound).toBe(player)
+        assert.equal(app.$sound, player)
     })
     it('allows overriding global reference name', () => {
         const player = new SoundKit()
         player.install(MockFramework, { name: 'player' })
         const app = new MockFramework()
-        expect(app.$player).toBe(player)
+        assert.equal(app.$player, player)
     })
 })
 
@@ -41,12 +43,12 @@ describe('Vue 3 Plugin', () => {
         const player = new SoundKit()
         const app = new MockApp()
         app.use(player)
-        expect(app.config.globalProperties.$sound).toBe(player)
+        assert.equal(app.config.globalProperties.$sound, player)
     })
     it('allows overriding global reference name', () => {
         const player = new SoundKit()
         const app = new MockApp()
         app.use(player, { name: 'player' })
-        expect(app.config.globalProperties.$player).toBe(player)
+        assert.equal(app.config.globalProperties.$player, player)
     })
 })

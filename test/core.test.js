@@ -1,12 +1,14 @@
-import { jest } from '@jest/globals'
-import { SoundKit } from '..'
+import assert from 'node:assert/strict'
+import { beforeEach, describe, it, mock } from 'node:test'
+import { SoundKit } from '../index.js'
+import './mocks.js'
 
 describe('Core', () => {
     let sk
     it('creates audio context', () => {
         sk = new SoundKit()
         sk.init()
-        expect(sk.context.state).toBe('running')
+        assert.equal(sk.context.state, 'running')
     })
     it('can initialize with multiple root groups', () => {
         sk = new SoundKit()
@@ -22,20 +24,20 @@ describe('Core', () => {
             }
         ]
         sk.init(groups)
-        expect(Object.keys(sk.groups).length).toBe(3)
+        assert.equal(Object.keys(sk.groups).length, 3)
     })
     it('removes audio context when closing', () => {
         sk = new SoundKit()
         sk.init()
         sk.stop()
-        expect(sk.context).toBeFalsy()
+        assert(!sk.context)
     })
     it('handles manually closed contexts', () => {
         sk = new SoundKit()
         sk.init()
         sk.context.close()
         sk.stop()
-        expect(sk.context).toBeFalsy()
+        assert(!sk.context)
     })
 })
 
@@ -46,18 +48,18 @@ describe('Groups', () => {
         sk.init()
     })
     it('has master group by default', () => {
-        expect(sk.groups.master).toBeTruthy()
+        assert(sk.groups.master)
     })
     it('adds groups', () => {
         sk.addGroup('master', { name: 'test' })
-        expect(sk.groups.test).toBeTruthy()
-        expect(sk.groups.test.muted).toBeFalsy()
-        expect(sk.groups.test.gain.gain.value).toBe(1)
+        assert(sk.groups.test)
+        assert(!sk.groups.test.muted)
+        assert.equal(sk.groups.test.gain.gain.value, 1)
     })
     it('respects muted state of added groups', () => {
         sk.addGroup('master', { name: 'test', muted: true })
-        expect(sk.groups.test.muted).toBeTruthy()
-        expect(sk.groups.test.gain.gain.value).toBe(0)
+        assert(sk.groups.test.muted)
+        assert.equal(sk.groups.test.gain.gain.value, 0)
     })
     it('adds hierarchy of groups', () => {
         const groups = [
@@ -73,16 +75,16 @@ describe('Groups', () => {
             }
         ]
         sk.addGroups(groups, 'master')
-        expect(sk.groups.test).toBeTruthy()
-        expect(sk.groups.test2).toBeTruthy()
-        expect(sk.groups.nested1).toBeTruthy()
-        expect(sk.groups.nested2).toBeTruthy()
+        assert(sk.groups.test)
+        assert(sk.groups.test2)
+        assert(sk.groups.nested1)
+        assert(sk.groups.nested2)
     })
     it('warns for duplicate groups', () => {
-        const warning = jest.spyOn(console, 'warn')
+        const warning = mock.method(console, 'warn')
         sk.addGroup('master', { name: 'test' })
         sk.addGroup('master', { name: 'test' })
-        expect(warning).toHaveBeenCalledWith('Group test already exists!')
+        assert.equal(warning.mock.calls[0].arguments[0], 'Group test already exists!')
     })
 })
 
@@ -93,9 +95,9 @@ describe('Errors', () => {
         sk.init()
     })
     it('should not try to play files if they can not be found', async() => {
-        const warning = jest.spyOn(console, 'warn')
+        const warning = mock.method(console, 'warn')
         const source = await sk.play('example')
-        expect(source).toBeFalsy()
-        expect(warning).toHaveBeenCalledWith('Sound example not found!')
+        assert(!source)
+        assert.equal(warning.mock.calls[0].arguments[0], 'Sound example not found!')
     })
 })
