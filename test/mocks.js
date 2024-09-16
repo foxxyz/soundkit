@@ -69,10 +69,10 @@ class Destination extends Node {
     }
 }
 
-window.mockAudioLength = 50 // ms
+global.mockAudioLength = 50 // ms
 
 // Mock the web audio API so tests work in node, the real API only works in browser
-window.AudioContext = class {
+global.AudioContext = class {
     constructor() {
         this.state = 'running',
         this.destination = new Destination()
@@ -85,7 +85,7 @@ window.AudioContext = class {
             sourceNode.playing = true
             sourceNode.playback = setTimeout(() => {
                 if (sourceNode.onended) sourceNode.onended()
-            }, window.mockAudioLength)
+            }, global.mockAudioLength)
         }
         sourceNode.stop = () => {
             clearTimeout(sourceNode.playback)
@@ -111,7 +111,7 @@ window.AudioContext = class {
 }
 
 // Mock browser native fetch
-window.fetch = () => new Promise(res => {
+global.fetch = () => new Promise(res => {
     delay(10)
     res(new Response())
 })
